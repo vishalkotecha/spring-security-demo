@@ -1,7 +1,5 @@
 package com.vishalkotecha.ssdemo.config;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,7 +14,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and().formLogin().defaultSuccessUrl("/welcome");
+		http.authorizeRequests()
+			.anyRequest()
+			.authenticated()
+			.and()
+			.formLogin()
+			.defaultSuccessUrl("/welcome",true);
 
 	}
 
@@ -35,10 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new CustomUserDetailsService();
 	}
 
-	@PostConstruct
-	public void test() {
-		String encode = passwordEncoder().encode("test123");
-		System.out.println("PSWD : " + encode);
-	}
+	/*
+	 * @PostConstruct public void test() { String encode =
+	 * passwordEncoder().encode("test123"); System.out.println("PSWD : " + encode);
+	 * }
+	 */
 
 }
